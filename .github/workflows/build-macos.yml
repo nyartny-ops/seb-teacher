@@ -79,6 +79,20 @@ jobs:
           path: build/SEB-Teacher.dmg
           if-no-files-found: error
 
+      # Копия .dmg в ветке dist — её удобно скачивать через git, если загрузка
+      # артефактов с серверов GitHub идёт медленно.
+      - name: Publish DMG to dist branch
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        run: |
+          mkdir -p "$RUNNER_TEMP/dist"
+          cp build/SEB-Teacher.dmg "$RUNNER_TEMP/dist/"
+          cd "$RUNNER_TEMP/dist"
+          git init -q
+          git checkout -q -b dist
+          git add SEB-Teacher.dmg
+          git -c user.name="github-actions" -c user.email="github-actions@users.noreply.github.com" commit -qm "SEB-Teacher.dmg from ${GITHUB_SHA::7}"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" dist
+
       - name: Publish release (tags only)
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
