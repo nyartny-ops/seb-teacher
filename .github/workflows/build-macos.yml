@@ -1,0 +1,80 @@
+name: Build SEB Teacher (macOS)
+
+# Собирает .dmg-установщик на облачном Mac GitHub.
+# Запуск: вкладка Actions → «Build SEB Teacher (macOS)» → Run workflow,
+# или автоматически при каждом push в main. Готовый SEB-Teacher.dmg —
+# в разделе Artifacts внизу страницы запуска. При push тега вида v1.0
+# дополнительно создаётся Release с этим файлом.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+    tags: [ 'v*' ]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      # Необязательно: подпись сертификатом Developer ID и нотаризация.
+      # Нужны секреты репозитория MACOS_CERTIFICATE (p12 в base64),
+      # MACOS_CERTIFICATE_PASSWORD, MACOS_SIGN_IDENTITY, а для нотаризации
+      # ещё APPLE_ID, APPLE_TEAM_ID, APPLE_APP_PASSWORD.
+      - name: Import signing certificate (optional)
+        env:
+          MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
+          MACOS_CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+        if: env.MACOS_CERTIFICATE != ''
+        run: |
+          KEYCHAIN="$RUNNER_TEMP/build.keychain-db"
+          echo "$MACOS_CERTIFICATE" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+          security create-keychain -p ci "$KEYCHAIN"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN"
+          security unlock-keychain -p ci "$KEYCHAIN"
+          security import "$RUNNER_TEMP/cert.p12" -k "$KEYCHAIN" -P "$MACOS_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -s -k ci "$KEYCHAIN"
+          security list-keychains -d user -s "$KEYCHAIN" $(security list-keychains -d user | tr -d '"')
+          if [ -n "$APPLE_ID" ]; then
+            xcrun notarytool store-credentials seb-notary --apple-id "$APPLE_ID" --team-id "$APPLE_TEAM_ID" --password "$APPLE_APP_PASSWORD"
+            echo "NOTARY_PROFILE=seb-notary" >> "$GITHUB_ENV"
+          fi
+          echo "SIGN_IDENTITY=${{ secrets.MACOS_SIGN_IDENTITY }}" >> "$GITHUB_ENV"
+
+      - name: Build DMG
+        run: bash scripts/build-teacher-dmg.sh
+
+      - name: Upload build log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xcodebuild-log
+          path: build/xcodebuild.log
+          if-no-files-found: ignore
+
+      - name: Upload DMG
+        uses: actions/upload-artifact@v4
+        with:
+          name: SEB-Teacher-dmg
+          path: build/SEB-Teacher.dmg
+          if-no-files-found: error
+
+      - name: Publish release (tags only)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/SEB-Teacher.dmg
