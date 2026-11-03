@@ -8,6 +8,11 @@ name: Build SEB Teacher (macOS)
 
 on:
   workflow_dispatch:
+    inputs:
+      runner:
+        description: 'Тип облачного Mac (macos-14, macos-15, macos-15-intel)'
+        required: false
+        default: 'macos-14'
   push:
     branches: [ main, master ]
     tags: [ 'v*' ]
@@ -17,7 +22,8 @@ permissions:
 
 jobs:
   build:
-    runs-on: macos-15
+    # Если сборка долго стоит в очереди, можно выбрать другой тип Mac при ручном запуске.
+    runs-on: ${{ github.event.inputs.runner || 'macos-14' }}
     timeout-minutes: 60
     steps:
       - name: Checkout
