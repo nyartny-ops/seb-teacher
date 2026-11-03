@@ -244,6 +244,10 @@ static void SEBTeacherSwizzle(Class cls, SEL original, SEL replacement)
                                      title:@"Обнаруживать приостановку SEB"
                                       hint:@"Защита от «заморозки» SEB отладчиком или командой kill -STOP."
                                       free:NO standard:YES strict:YES],
+            [SEBTeacherOption optionWithID:@"forceQuitWindowCheck" section:1
+                                     title:@"Не запускать при открытом окне «Принудительное завершение»"
+                                      hint:@"Если SEB ошибочно жалуется на это окно, хотя оно закрыто, выключите пункт. Принудительное завершение всё равно заблокировано во время контрольной."
+                                      free:NO standard:NO strict:YES],
             [SEBTeacherOption optionWithID:@"colorGuard" section:1
                                      title:@"Запретить смену цветов экрана"
                                       hint:@"Инверсия, оттенки серого, цветофильтры, контраст, тёмная тема. При изменении экран блокируется до ввода пароля."
@@ -417,6 +421,7 @@ static void SEBTeacherSwizzle(Class cls, SEL original, SEL replacement)
 - (BOOL)colorGuardEnabled       { return [self boolForOption:@"colorGuard"]; }
 - (BOOL)forceLightAppearance    { return [self boolForOption:@"forceLightAppearance"]; }
 - (BOOL)allowNativePreferences  { return [self boolForOption:@"allowNativePreferences"]; }
+- (BOOL)forceQuitWindowCheck    { return [self boolForOption:@"forceQuitWindowCheck"]; }
 
 
 #pragma mark Хранение

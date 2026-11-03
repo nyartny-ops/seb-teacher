@@ -89,6 +89,7 @@ typedef NS_ENUM(NSInteger, SEBTeacherQuitPasswordMode) {
 @property (nonatomic, readonly) BOOL colorGuardEnabled;
 @property (nonatomic, readonly) BOOL forceLightAppearance;
 @property (nonatomic, readonly) BOOL allowNativePreferences;
+@property (nonatomic, readonly) BOOL forceQuitWindowCheck;
 
 /// Однократно устанавливает перехват ⌘M / ⌘H (сворачивание, скрытие).
 - (void)installRuntimeHooks;

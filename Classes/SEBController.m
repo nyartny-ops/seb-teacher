@@ -6154,10 +6154,40 @@ extern int csops(pid_t pid, unsigned int ops, void *useraddr, size_t usersize);
 // Check if the Force Quit window is open
 - (BOOL)forceQuitWindowOpen
 {
+    // Teacher Panel: the check can be switched off by the teacher.
+    if (![SEBTeacherSettings sharedSettings].forceQuitWindowCheck) {
+        return false;
+    }
     BOOL forceQuitWindowOpen = false;
     NSArray *windowList = CFBridgingRelease(CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly, kCGNullWindowID));
     for (NSDictionary *windowInformation in windowList) {
-        if ([[windowInformation valueForKey:@"kCGWindowOwnerName"] isEqualToString:@"loginwindow"]) {
+        if ([[windowInformation valueForKey:(NSString *)kCGWindowOwnerName] isEqualToString:@"loginwindow"]) {
+            // On current macOS versions loginwindow also owns invisible or full-screen
+            // background windows (desktop/wallpaper/widgets layers). Only a visible,
+            // dialog-sized window on a normal or higher level is the Force Quit window.
+            NSInteger layer = [windowInformation[(NSString *)kCGWindowLayer] integerValue];
+            double alpha = [windowInformation[(NSString *)kCGWindowAlpha] doubleValue];
+            CGRect bounds = CGRectZero;
+            NSDictionary *boundsDict = windowInformation[(NSString *)kCGWindowBounds];
+            if (boundsDict) {
+                CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)boundsDict, &bounds);
+            }
+            BOOL coversScreen = NO;
+            for (NSScreen *screen in [NSScreen screens]) {
+                if (bounds.size.width >= screen.frame.size.width * 0.8 &&
+                    bounds.size.height >= screen.frame.size.height * 0.8) {
+                    coversScreen = YES;
+                    break;
+                }
+            }
+            DDLogDebug(@"loginwindow window: layer %ld, alpha %.2f, bounds %@, coversScreen %d",
+                       (long)layer, alpha, NSStringFromRect(NSRectFromCGRect(bounds)), coversScreen);
+            if (layer < 0 || alpha <= 0.01 || coversScreen ||
+                bounds.size.width < 50 || bounds.size.height < 50) {
+                continue;
+            }
+            DDLogWarn(@"Force Quit window (or other loginwindow dialog) detected: layer %ld, bounds %@",
+                      (long)layer, NSStringFromRect(NSRectFromCGRect(bounds)));
             forceQuitWindowOpen = true;
             break;
         }
