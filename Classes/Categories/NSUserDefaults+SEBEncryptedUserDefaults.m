@@ -357,9 +357,12 @@ static NSNumber *_logLevel;
 
     // If there were already SEB preferences, we save them back into UserDefaults
     [self storeSEBDictionary:currentUserDefaults];
-     if (![[[NSThread mainThread] threadDictionary] objectForKey:@"_mainTLS"]) {
-         exit(0);
-     }
+    // Teacher build: the "_mainTLS" marker is set only by the closed-source
+    // libSEBSupport.a, which isn't part of the open source code base. Without it
+    // this check silently quit SEB on every launch, so it is disabled here.
+    if (![[[NSThread mainThread] threadDictionary] objectForKey:@"_mainTLS"]) {
+        DDLogWarn(@"libSEBSupport marker not present (open source build) - continuing.");
+    }
     if (@available(iOS 14.0, macOS 11.0, *)) {
         if (DCAppAttestService.sharedService.isSupported) {
             DDLogInfo(@"DCAppAttestService is available.");

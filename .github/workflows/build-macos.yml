@@ -64,12 +64,36 @@ jobs:
       - name: Build DMG
         run: bash scripts/build-teacher-dmg.sh
 
+      # Проверка запуска: приложение должно остаться работать (ждать на панели
+      # преподавателя), а не завершиться сразу после старта.
+      - name: Smoke test (launch)
+        run: |
+          APP="build/DerivedData/Build/Products/Release/Safe Exam Browser.app"
+          BIN="$APP/Contents/MacOS/$(ls "$APP/Contents/MacOS" | head -1)"
+          "$BIN" > build/smoke.log 2>&1 &
+          PID=$!
+          sleep 30
+          if kill -0 $PID 2>/dev/null; then
+            echo "SEB is running after 30 s (PID $PID) - OK"
+            kill -9 $PID || true
+          else
+            wait $PID; echo "SEB exited early with code $?"
+            echo "---- output ----"; tail -100 build/smoke.log
+            echo "---- crash reports ----"
+            ls -t ~/Library/Logs/DiagnosticReports/ 2>/dev/null | head
+            f=$(ls -t ~/Library/Logs/DiagnosticReports/*Safe* 2>/dev/null | head -1)
+            [ -n "$f" ] && head -120 "$f"
+            exit 1
+          fi
+
       - name: Upload build log on failure
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: xcodebuild-log
-          path: build/xcodebuild.log
+          path: |
+            build/xcodebuild.log
+            build/smoke.log
           if-no-files-found: ignore
 
       - name: Upload DMG
