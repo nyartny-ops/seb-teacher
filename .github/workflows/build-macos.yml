@@ -10,9 +10,9 @@ on:
   workflow_dispatch:
     inputs:
       runner:
-        description: 'Тип облачного Mac (macos-14, macos-15, macos-15-intel)'
+        description: 'Тип облачного Mac (macos-15-intel, macos-15, macos-26)'
         required: false
-        default: 'macos-14'
+        default: 'macos-15-intel'
   push:
     branches: [ main, master ]
     tags: [ 'v*' ]
@@ -23,7 +23,7 @@ permissions:
 jobs:
   build:
     # Если сборка долго стоит в очереди, можно выбрать другой тип Mac при ручном запуске.
-    runs-on: ${{ github.event.inputs.runner || 'macos-14' }}
+    runs-on: ${{ github.event.inputs.runner || 'macos-15-intel' }}
     timeout-minutes: 60
     steps:
       - name: Checkout
@@ -32,7 +32,7 @@ jobs:
       - name: Select Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: latest-stable
+          xcode-version: '^26'
 
       # Необязательно: подпись сертификатом Developer ID и нотаризация.
       # Нужны секреты репозитория MACOS_CERTIFICATE (p12 в base64),
