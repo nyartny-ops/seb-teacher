@@ -1,0 +1,9 @@
+2026-11-04 14:09:22.724 Safe Exam Browser[10307:31770] [TeacherPanel] Applied teacher settings (preset: Стандартный)
+2026-11-04 14:09:25.009 Safe Exam Browser[10307:31770] [TeacherPanel] Autotest stage: 1-panel
+2026-11-04 14:09:28.665 Safe Exam Browser[10307:31770] [TeacherPanel] Autotest stage: 2-settings
+2026-11-04 14:09:32.669 Safe Exam Browser[10307:31770] [TeacherPanel] Autotest stage: 3-settings-bottom
+2026-11-04 14:09:36.307 Safe Exam Browser[10307:31770] [TeacherPanel] Applied teacher settings (preset: Свой)
+2026-11-04 14:09:36.307 Safe Exam Browser[10307:31770] [TeacherPanel] Color guard started
+2026-11-04 14:09:56.488 Safe Exam Browser[10307:31770] [TeacherPanel] Autotest stage: 4-exam
+2026-11-04 14:10:14.312 Safe Exam Browser[10307:31770] [TeacherPanel] Screen colors changed during exam: Тёмная тема
+2026-11-04 14:10:22.321 Safe Exam Browser[10307:31770] [TeacherPanel] Screen colors changed during exam: Тёмная тема

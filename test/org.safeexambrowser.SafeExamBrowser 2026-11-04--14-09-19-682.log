@@ -1,0 +1,899 @@
+2026/11/04 14:09:19:680  ---------- STARTING UP SEB - INITIALIZE SETTINGS -------------
+2026/11/04 14:09:19:681  (log continues in the same file if the current settings keep the default log directory, otherwise in another file in the configured directory)
+2026/11/04 14:09:19:681  Temporary startup log directory: /Users/runner/Library/Logs/Safe Exam Browser
+2026/11/04 14:09:19:686  Safe Exam Browser version 3.7.2b1 (Build 15A1A)
+2026/11/04 14:09:19:686  Bundle ID: org.safeexambrowser.SafeExamBrowser, executable: Safe Exam Browser
+2026/11/04 14:09:19:686  OS version macOS Version 15.7.9 (Build 24G830)
+2026/11/04 14:09:19:686  Local hostname: iad01-dz253-ab87334f-5c76-4636-98eb-9a07f7dcd120-A2B96A39C5E0
+2026/11/04 14:09:19:687  Device name: iad01-dz253-ab87334f-5c76-4636-98eb-9a07f7dcd120-A2B96A39C5E0
+2026/11/04 14:09:19:687  User name: runner
+2026/11/04 14:09:19:687  Full user name: runner
+2026/11/04 14:09:19:687  Setting local client settings (NSUserDefaults)
+2026/11/04 14:09:19:702  -[SEBKeychainManager retrieveKeyWithID:]: SecItemCopyMatching failed with error: Error Domain=NSOSStatusErrorDomain Code=-25300 "errKCItemNotFound / errSecItemNotFound: / The item cannot be found."
+2026/11/04 14:09:19:703  UserDefaults key not found, probably it wasn't yet existing, creating a new one.
+2026/11/04 14:09:19:727  Generated UserDefaults key as there was none defined yet.
+2026/11/04 14:09:19:730  Updating UserDefaults key
+2026/11/04 14:09:19:746  -[NSUserDefaults(SEBEncryptedUserDefaults) storeSEBDictionary:]
+2026/11/04 14:09:19:746  -[NSUserDefaults(SEBEncryptedUserDefaults) storeSEBDefaultSettings]
+2026/11/04 14:09:21:330  libSEBSupport marker not present (open source build) - continuing.
+2026/11/04 14:09:21:424  DCAppAttestService is not available, despite running on macOS >= 11
+2026/11/04 14:09:21:425  DeviceCheck API is not supported on the current device.
+2026/11/04 14:09:21:426  [SEBCryptor updateEncryptedUserDefaults:1, generateNewSalt:0 newChecksum]
+2026/11/04 14:09:21:432  Generated BrowserExamKey salt as there was none defined yet.
+2026/11/04 14:09:21:554  Settings changed.
+2026/11/04 14:09:21:700  Updated ConfigKey.
+2026/11/04 14:09:21:705  Local preferences (client settings) set
+2026/11/04 14:09:21:711  No deployed SEB client settings (SEBClientSettings.seb) found in Library/Preferences/; starting up with the local client configuration.
+2026/11/04 14:09:21:713  ---------- INITIALIZING SEB - STARTING SESSION -------------
+2026/11/04 14:09:21:713  Log directory: /Users/runner/Library/Logs/Safe Exam Browser (default)
+2026/11/04 14:09:21:714  Safe Exam Browser version 3.7.2b1 (Build 15A1A)
+2026/11/04 14:09:21:714  Bundle ID: org.safeexambrowser.SafeExamBrowser, executable: Safe Exam Browser
+2026/11/04 14:09:21:714  OS version macOS Version 15.7.9 (Build 24G830)
+2026/11/04 14:09:21:714  Local hostname: iad01-dz253-ab87334f-5c76-4636-98eb-9a07f7dcd120-A2B96A39C5E0
+2026/11/04 14:09:21:714  Device name: iad01-dz253-ab87334f-5c76-4636-98eb-9a07f7dcd120-A2B96A39C5E0
+2026/11/04 14:09:21:714  User name: runner
+2026/11/04 14:09:21:714  Full user name: runner
+2026/11/04 14:09:22:100  -[NSUserDefaults(SEBEncryptedUserDefaults) valueForDefaultsDomain:key:] addSuiteNamed: com.apple.assistant.support
+2026/11/04 14:09:22:142  -[NSUserDefaults(SEBEncryptedUserDefaults) valueForDefaultsDomain:key:] addSuiteNamed: com.apple.speech.recognition.AppleSpeechRecognition.prefs
+2026/11/04 14:09:22:166  -[NSUserDefaults(SEBEncryptedUserDefaults) valueForDefaultsDomain:key:] addSuiteNamed: com.apple.assistant.support
+2026/11/04 14:09:22:186  -[NSUserDefaults(SEBEncryptedUserDefaults) valueForDefaultsDomain:key:] addSuiteNamed: com.apple.Spotlight
+2026/11/04 14:09:22:207  -[NSUserDefaults(SEBEncryptedUserDefaults) valueForDefaultsDomain:key:] addSuiteNamed: com.apple.controlcenter
+2026/11/04 14:09:22:227  -[NSUserDefaults(SEBEncryptedUserDefaults) valueForDefaultsDomain:key:] addSuiteNamed: com.apple.touchbar.agent
+2026/11/04 14:09:22:229  -[NSUserDefaults(SEBEncryptedUserDefaults) valueForDefaultsDomain:key:] addSuiteNamed: com.apple.touchbar.agent
+2026/11/04 14:09:22:332  -[SEBController awakeFromNib]
+2026/11/04 14:09:22:339  App <NSRunningApplication: 0x6000011f4a00 (com.apple.finder - 412) LSASN:{hi=0x0;lo=0x12012}> owns menu bar
+2026/11/04 14:09:22:374  -[SEBController applicationWillFinishLaunching:]
+2026/11/04 14:09:22:481  launched app localizedName: Safe Exam Browser, bundleID: org.safeexambrowser.SafeExamBrowser executableURL: file:///Applications/Safe%20Exam%20Browser.app/Contents/MacOS/Safe%20Exam%20Browser
+2026/11/04 14:09:22:485  Invoked applicationShouldOpenUntitledFile with answer NO!
+2026/11/04 14:09:22:489  -[SEBController applicationDidFinishLaunching:]
+2026/11/04 14:09:22:765  orderFront About Window
+2026/11/04 14:09:22:776  -[AboutWindowController showAboutWindowForSeconds:] Close About SEB window after a delay of 2 seconds
+2026/11/04 14:09:22:776  -[SEBController didFinishLaunchingWithSettings]
+2026/11/04 14:09:22:777  Using lockdownModePolicyEnforceClassic
+2026/11/04 14:09:22:777  isAACEnabled = 0
+2026/11/04 14:09:22:777  -[SEBBrowserController init]
+2026/11/04 14:09:22:793  documentController: <NSDocumentController: 0x600002a85800> didCloseAll: 1 contextInfo: (null)
+2026/11/04 14:09:22:823  -[SEBBrowserController resetBrowser] Cookies, caches and credential stores are being reset when starting new browser session (examSessionClearCookiesOnStart = true)
+2026/11/04 14:09:22:824  hideWiFiControls is set - not requesting Location Services authorization.
+2026/11/04 14:09:22:824  -[SEBController conditionallyInitSEBWithCallback:selector:]
+2026/11/04 14:09:22:824  -[SEBController conditionallyInitSEBWithCallback:selector:]: Showing teacher panel before starting the session.
+2026/11/04 14:09:22:824  Attempting to close About SEB window <AboutWindow: 0x7fe585a1f630>
+2026/11/04 14:09:22:837  Window <NSWindow: 0x7fe584f216f0> level NSModalPanelWindowLevel (8) changed to NSMainMenuWindowLevel+6 (30), elevateWindowLevels=0
+2026/11/04 14:09:22:837  Window <NSWindow: 0x7fe584f216f0> setLevel: 8 → 30 (elevateWindowLevels=0)
+2026/11/04 14:09:23:116  isActive property of SEB changed!
+2026/11/04 14:09:23:237  Created new WKWebViewConfiguration <WKWebViewConfiguration: 0x7fe584f83d80; processPool = <WKProcessPool: 0x7fe585089a00; configuration = <_WKProcessPoolConfiguration: 0x600000ae5140>>; preferences = <WKPreferences: 0x600000dc6be0>>
+2026/11/04 14:09:23:243  Started application Safe Exam Browser Graphics and Media with bundle ID: com.apple.WebKit.GPU
+2026/11/04 14:09:23:256  SEB got active
+2026/11/04 14:09:23:357  Not terminating instance of WebKit networking process started by SEB
+2026/11/04 14:09:23:384  -[SEBBrowserController resetAllCookies] Cookies, caches, credential stores and WKWebsiteDataTypes were reset
+2026/11/04 14:09:23:384  -[SEBBrowserController init] Cookies, caches and credential stores have been reset
+2026/11/04 14:09:23:389  -[SEBBrowserController resetAllCookies] Cookies, caches, credential stores and WKWebsiteDataTypes were reset
+2026/11/04 14:09:23:414  System model ID: Macmini6,2
+2026/11/04 14:09:23:414  Current Settings: Maximum allowed displays: 1, use built-in display.
+2026/11/04 14:09:23:445  Display Unknown Display (ID 25165824) from vendor 4102 with Resolution 1920.000000 x 1080.000000
+ is built-in
+ is main
+ is not mirrored
+ is not HW mirrored
+ is not always mirrored
+2026/11/04 14:09:23:446  Display Unknown Display (ID 25165824) is claiming to be built-in
+2026/11/04 14:09:23:446  All available screens: (
+    "<NSScreen: 0x600001b907e0>"
+)
+2026/11/04 14:09:23:446  Use built-in option set, using display with ID 25165824
+2026/11/04 14:09:23:446  Found matching screen (<NSScreen: 0x600001b907e0>) for main display (ID 0)
+2026/11/04 14:09:23:446  Move all browser windows to new main screen <NSScreen: 0x600001b907e0>.
+2026/11/04 14:09:23:450  Adjusting screen locking
+2026/11/04 14:09:23:451  -[SEBController closeCoveringWindows:]: (null)
+2026/11/04 14:09:23:843  Default browser user agent string: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.3 Safari/605.1.15
+2026/11/04 14:09:24:895  Attempting to close About Window <AboutWindowController: 0x60000145b4f0>
+2026/11/04 14:09:35:997  -[SEBController conditionallyInitSEBWithCallback:selector:]
+2026/11/04 14:09:36:309  Using lockdownModePolicyEnforceClassic
+2026/11/04 14:09:36:310  -[SEBController checkMinMacOSVersion]: Is running on macOS version with index 10 allowed?
+2026/11/04 14:09:36:310  -[SEBController checkMinMacOSVersion]: Is running on macOS version with allow major version 12, minor version 0, patch version 0 allowed?
+2026/11/04 14:09:36:310  -[SEBController checkMinMacOSVersion]: Running on current macOS version is allowed.
+2026/11/04 14:09:36:311  SEB was started up from this path: /Applications/Safe Exam Browser.app
+2026/11/04 14:09:36:311  SEB was started up from an Applications folder.
+2026/11/04 14:09:36:317  Running applications at session start (34 total):
+2026/11/04 14:09:36:318    loginwindow (bundle ID: com.apple.loginwindow)
+2026/11/04 14:09:36:319    ViewBridgeAuxiliary (bundle ID: com.apple.ViewBridgeAuxiliary)
+2026/11/04 14:09:36:319    universalaccessd (bundle ID: (no bundle ID))
+2026/11/04 14:09:36:320    CoreServicesUIAgent (bundle ID: com.apple.coreservices.uiagent)
+2026/11/04 14:09:36:321    SystemUIServer (bundle ID: com.apple.systemuiserver)
+2026/11/04 14:09:36:321    WindowManager (bundle ID: com.apple.WindowManager)
+2026/11/04 14:09:36:322    Control Center (bundle ID: com.apple.controlcenter)
+2026/11/04 14:09:36:322    Dock (bundle ID: com.apple.dock)
+2026/11/04 14:09:36:323    CoreLocationAgent (bundle ID: com.apple.CoreLocationAgent)
+2026/11/04 14:09:36:323    Wallpaper (bundle ID: com.apple.wallpaper.agent)
+2026/11/04 14:09:36:324    QuickLookUIService (PID 412) (bundle ID: com.apple.quicklook.QuickLookUIService)
+2026/11/04 14:09:36:325    Finder (bundle ID: com.apple.finder)
+2026/11/04 14:09:36:326    talagentd (bundle ID: com.apple.talagent)
+2026/11/04 14:09:36:326    AirPlay Screen Mirroring (bundle ID: com.apple.AirPlayUIAgent)
+2026/11/04 14:09:36:327    TextInputMenuAgent (bundle ID: com.apple.TextInputMenuAgent)
+2026/11/04 14:09:36:327    Dock Extra (bundle ID: com.apple.dock.extra)
+2026/11/04 14:09:36:328    TextInputSwitcher (bundle ID: com.apple.TextInputSwitcher)
+2026/11/04 14:09:36:328    UIKitSystem (bundle ID: com.apple.UIKitSystemApp)
+2026/11/04 14:09:36:329    CursorUIViewService (bundle ID: com.apple.TextInputUI.xpc.CursorUIViewService)
+2026/11/04 14:09:36:329    Spotlight (bundle ID: com.apple.Spotlight)
+2026/11/04 14:09:36:330    chronod (bundle ID: com.apple.chronod)
+2026/11/04 14:09:36:331    Single Sign-On (bundle ID: com.apple.AppSSOAgent)
+2026/11/04 14:09:36:331    SoftwareUpdateNotificationManager (bundle ID: com.apple.SoftwareUpdateNotificationManager)
+2026/11/04 14:09:36:331    IOUIAgent (bundle ID: com.apple.IOUIAgent)
+2026/11/04 14:09:36:332    AppSSODaemon (bundle ID: (no bundle ID))
+2026/11/04 14:09:36:332    Wi-Fi (bundle ID: com.apple.wifi.WiFiAgent)
+2026/11/04 14:09:36:333    BackgroundTaskManagementAgent (bundle ID: com.apple.backgroundtaskmanagement.agent)
+2026/11/04 14:09:36:334    SimulatorTrampoline (bundle ID: com.apple.CoreSimulator.SimulatorTrampoline)
+2026/11/04 14:09:36:334    com.apple.CoreSimulator.CoreSimulatorService (bundle ID: com.apple.CoreSimulator.CoreSimulatorService)
+2026/11/04 14:09:36:335    softwareupdated (bundle ID: (no bundle ID))
+2026/11/04 14:09:36:335    Safe Exam Browser (bundle ID: org.safeexambrowser.SafeExamBrowser)
+2026/11/04 14:09:36:335    Safe Exam Browser Graphics and Media (bundle ID: com.apple.WebKit.GPU)
+2026/11/04 14:09:36:336    Safe Exam Browser Networking (bundle ID: com.apple.WebKit.Networking)
+2026/11/04 14:09:36:336  hasFullDiskAccess: TCC database readable - Full Disk Access granted.
+2026/11/04 14:09:36:337  -[SEBController addAccessibilityAppsToProhibitedApplicationsList]: App with Accessibility permission added to prohibited list: com.apple.dt.Xcode-Helper
+2026/11/04 14:09:36:338  -[SEBController terminateApplications:processes:starting:restarting:callback:selector:] starting: 1 restarting: 0 callback: <SEBController: 0x7fe58686ea00> selector: didFinishLaunchingWithSettingsProcessesChecked
+2026/11/04 14:09:37:523  -[SEBController conditionallyContinueAfterTerminatingAppsWithCallback:restarting:selector:starting:] callback: <SEBController: 0x7fe58686ea00> restarting: 0 selector: didFinishLaunchingWithSettingsProcessesChecked starting: 1
+2026/11/04 14:09:37:523  -[SEBController conditionallyInitSEBProcessesCheckedWithCallback:selector:]
+2026/11/04 14:09:37:524  hasFullDiskAccess: TCC database readable - Full Disk Access granted.
+2026/11/04 14:09:37:525  hasFullDiskAccess: TCC database readable - Full Disk Access granted.
+2026/11/04 14:09:37:526  hasFullDiskAccess: TCC database readable - Full Disk Access granted.
+2026/11/04 14:09:37:531  Download directory can be accessed.
+2026/11/04 14:09:37:531  Configured download directory /Users/runner/Downloads
+2026/11/04 14:09:37:531  -[SEBController conditionallyInitSEBPermissionsCheckWithCallback:selector:]
+2026/11/04 14:09:37:539  Running on macOS 10.15.4 or newer, may use AAC if allowed in current settings.
+2026/11/04 14:09:37:540  Using lockdownModePolicyEnforceClassic
+2026/11/04 14:09:37:540  _isAACEnabled == true, attempting to close cap (background covering) windows, which might have been open from a previous SEB session.
+2026/11/04 14:09:37:540  -[SEBController closeCoveringWindows:]: (null)
+2026/11/04 14:09:37:540  isAACEnabled = 0
+2026/11/04 14:09:37:540  -[SEBController initSEBProcessesCheckedWithCallback:selector:] callback: <SEBController: 0x7fe58686ea00> selector: didFinishLaunchingWithSettingsProcessesChecked
+2026/11/04 14:09:37:540  -[SEBController initSEBProcessesCheckedWithCallback:selector:]: isAACEnabled = false, using SEB kiosk mode
+2026/11/04 14:09:37:553  System model ID: Macmini6,2
+2026/11/04 14:09:37:554  Current Settings: Maximum allowed displays: 1, use built-in display.
+2026/11/04 14:09:37:566  Display Unknown Display (ID 25165824) from vendor 4102 with Resolution 1920.000000 x 1080.000000
+ is built-in
+ is main
+ is not mirrored
+ is not HW mirrored
+ is not always mirrored
+2026/11/04 14:09:37:566  Display Unknown Display (ID 25165824) is claiming to be built-in
+2026/11/04 14:09:37:566  All available screens: (
+    "<NSScreen: 0x600001b907e0>"
+)
+2026/11/04 14:09:37:566  Use built-in option set, using display with ID 25165824
+2026/11/04 14:09:37:566  Found matching screen (<NSScreen: 0x600001b907e0>) for main display (ID 0)
+2026/11/04 14:09:37:566  Move all browser windows to new main screen <NSScreen: 0x600001b907e0>.
+2026/11/04 14:09:37:573  -[NSUserDefaults(SEBEncryptedUserDefaults) valueForDefaultsDomain:key:] addSuiteNamed: com.apple.speech.recognition.AppleSpeechRecognition.prefs
+2026/11/04 14:09:37:575  -[NSUserDefaults(SEBEncryptedUserDefaults) valueForDefaultsDomain:key:] addSuiteNamed: com.apple.assistant.support
+2026/11/04 14:09:37:576  -[NSUserDefaults(SEBEncryptedUserDefaults) valueForDefaultsDomain:key:] addSuiteNamed: com.apple.assistant.support
+2026/11/04 14:09:37:578  -[NSUserDefaults(SEBEncryptedUserDefaults) valueForDefaultsDomain:key:] addSuiteNamed: com.apple.Spotlight
+2026/11/04 14:09:37:580  -[NSUserDefaults(SEBEncryptedUserDefaults) valueForDefaultsDomain:key:] addSuiteNamed: com.apple.controlcenter
+2026/11/04 14:09:37:587  -[SEBController setElevateWindowLevels]: allowSwitchToApplications=0, _isAACEnabled=0, _wasAACEnabled=0 → elevateWindowLevels=1, privateUserDefaults=0
+2026/11/04 14:09:37:588  -[SEBController startKioskMode]
+2026/11/04 14:09:37:590  startKioskMode switchToApplications 0
+2026/11/04 14:09:37:590  -[SEBController startKioskModeThirdPartyAppsAllowed:overrideShowMenuBar:]
+2026/11/04 14:09:37:592  NSApp setPresentationOptions: 372
+2026/11/04 14:09:37:612  -[SEBController adjustModalAlertWindowLevels:] allowSwitchToThirdPartyApps: 0
+2026/11/04 14:09:37:618  String saved from pasteboard
+2026/11/04 14:09:37:620  Private clipboard disabled: not clearing the system pasteboard.
+2026/11/04 14:09:37:622  SEBController openSEBDock: dock enabled
+2026/11/04 14:09:37:622  [SEBDockController init]
+2026/11/04 14:09:37:627  [SEBDockController setLeftItems: (
+    "<SEBDockItem: 0x600001be5920>"
+)]
+2026/11/04 14:09:37:629  Dock Item Label View frame size: 150.000000, 27.000000 at origin: 0.000000, -3.000000
+2026/11/04 14:09:37:629  Dock Item Label Popover content size: 150.000000, 27.000000
+2026/11/04 14:09:37:635  [SEBDockController setRightItems: (
+    "<SEBDockItem: 0x600001be7420>",
+    "<SEBDockItem: 0x600001b80a20>",
+    "<SEBDockItemTime: 0x6000011db280>"
+)]
+2026/11/04 14:09:37:639  [SEBDockController showDock]
+2026/11/04 14:09:37:650  -[SEBController coverScreens] Open background windows on all available screens
+2026/11/04 14:09:37:651  Screen is active, device description: {
+    NSDeviceBitsPerSample = 8;
+    NSDeviceColorSpaceName = NSCalibratedRGBColorSpace;
+    NSDeviceIsScreen = YES;
+    NSDeviceResolution = "NSSize: {72, 72}";
+    NSDeviceSize = "NSSize: {1920, 1080}";
+    NSScreenNumber = 25165824;
+}
+2026/11/04 14:09:37:651  Opening background covering window with frame {
+    Height = 1080;
+    Width = 1920;
+    X = 0;
+    Y = 0;
+} and window level 26
+2026/11/04 14:09:37:654  Cap window <CapWindowController: 0x600000de50e0> init.
+2026/11/04 14:09:37:656  -[NSUserDefaults(SEBEncryptedUserDefaults) valueForDefaultsDomain:key:] addSuiteNamed: com.apple.screencapture
+2026/11/04 14:09:37:659  Current screencapture location: (null)
+2026/11/04 14:09:37:668  There are 485 running BSD processes (403 unique names): 
+(
+    "",
+    accessoryupdaterd,
+    accountsd,
+    addonsd,
+    adid,
+    adprivacyd,
+    AirPlayUIAgent,
+    AirPlayXPCHelper,
+    airportd,
+    akd,
+    amfid,
+    AMPDeviceDiscoveryAgent,
+    amsaccountsd,
+    amsengagementd,
+    analyticsagent,
+    analyticsd,
+    aned,
+    aneuserd,
+    ankacpd,
+    ankarund,
+    apfsd,
+    APFSUserAgent,
+    appleaccountd,
+    AppleCredentialManagerDaemon,
+    appleeventsd,
+    applekeystored,
+    AppleSpell,
+    AppPredictionIntentsHelperService,
+    AppSSOAgent,
+    AppSSODaemon,
+    appstoreagent,
+    askpermissiond,
+    aslmanager,
+    ASPCarryLog,
+    AssetCache,
+    AssetCacheLocatorService,
+    AssetCacheTetheratorService,
+    "assistant_cdmd",
+    assistantd,
+    AUCrashHandlerService,
+    audioaccessoryd,
+    audioclocksyncd,
+    AudioComponentRegistrar,
+    authd,
+    autofsd,
+    "automationmode-writer",
+    automountd,
+    avconferenced,
+    awdd,
+    axassetsd,
+    BackgroundTaskManagementAgent,
+    backgroundtaskmanagementd,
+    "backupd-helper",
+    bash,
+    BiomeAgent,
+    biomed,
+    biomesyncd,
+    bird,
+    bluetoothd,
+    bluetoothuserd,
+    bootinstalld,
+    calaccessd,
+    CalendarIntentsExtension,
+    CalendarWidgetExtension,
+    CallHistoryPluginHelper,
+    callservicesd,
+    cameracaptured,
+    CarbonComponentScannerXPC,
+    CategoriesService,
+    cdpd,
+    cfprefsd,
+    chronod,
+    cloudd,
+    CloudTelemetryService,
+    "colorsync.displayservices",
+    colorsyncd,
+    "com.apple.accessibility.mediaaccessibilityd",
+    "com.apple.AmbientDisplayAgent",
+    "com.apple.AppleUserHIDDrivers",
+    "com.apple.AppStoreDaemon.StorePrivilegedODRService",
+    "com.apple.audio.ComponentTagHelper",
+    "com.apple.audio.Core-Audio-Driver-Service",
+    "com.apple.audio.DriverHelper",
+    "com.apple.audio.SandboxHelper",
+    "com.apple.cmio.registerassistantservice",
+    "com.apple.CodeSigningHelper",
+    "com.apple.ColorSyncXPCAgent",
+    "com.apple.CoreSimulator.CoreSimulatorService",
+    "com.apple.dock.extra",
+    "com.apple.DriverKit-IOUserDockChannelSerial",
+    "com.apple.FaceTime.FTConversationService",
+    "com.apple.geod",
+    "com.apple.hiservices-xpcservice",
+    "com.apple.ifdreader",
+    "com.apple.MobileSoftwareUpdate.CleanupPreparePathService",
+    "com.apple.quicklook.ThumbnailsAgent",
+    "com.apple.sbd",
+    "com.apple.SiriTTSService.TrialProxy",
+    "com.apple.StreamingUnzipService.privileged",
+    "com.apple.WebKit.GPU",
+    "com.apple.WebKit.Networking",
+    CommCenter,
+    commerce,
+    configd,
+    contactsd,
+    contactsdonationagent,
+    containermanagerd,
+    "containermanagerd_system",
+    ContextService,
+    ContextStoreAgent,
+    contextstored,
+    ContinuityCaptureAgent,
+    ControlCenter,
+    copypaste,
+    coreaudiod,
+    coreauthd,
+    corebrightnessd,
+    CoreDeviceService,
+    coreduetd,
+    CoreLocationAgent,
+    coreservicesd,
+    CoreServicesUIAgent,
+    corespeechd,
+    "corespeechd_system",
+    corespotlightd,
+    coresymbolicationd,
+    countryd,
+    CrashReporterSupportHelper,
+    cryptexd,
+    csnameddatad,
+    ctkahp,
+    ctkd,
+    CursorUIViewService,
+    CVMServer,
+    dasd,
+    dataaccessd,
+    deleted,
+    "deleted_helper",
+    devicecheckd,
+    deviceinterfaced,
+    diagnosticextensionsd,
+    "diagnostics_agent",
+    dirhelper,
+    diskarbitrationd,
+    diskimagescontroller,
+    diskimagesiod,
+    DiskManagementSubscriber,
+    DiskUnmountWatcher,
+    displaypolicyd,
+    distnoted,
+    DistributionHelper,
+    dmd,
+    Dock,
+    donotdisturbd,
+    duetexpertd,
+    eligibilityd,
+    endpointsecurityd,
+    extensionkitservice,
+    fairplaydeviceidentityd,
+    familycircled,
+    filecoordinationd,
+    fileproviderd,
+    financed,
+    Finder,
+    findmybeaconingd,
+    findmydeviced,
+    findmylocateagent,
+    FindMyMacd,
+    followupd,
+    fontd,
+    fontworker,
+    fseventsd,
+    "fskit_helper",
+    fudHelperAgent,
+    gamecontrolleragentd,
+    gamecontrollerd,
+    generativeexperiencesd,
+    geodMachServiceBridge,
+    GSSCred,
+    heard,
+    helpd,
+    hidd,
+    homed,
+    "hosted-compute-agent",
+    icdd,
+    icloudmailagent,
+    iCloudNotificationAgent,
+    iconservicesagent,
+    iconservicesd,
+    identityservicesd,
+    idleassetsd,
+    imagent,
+    IMDPersistenceAgent,
+    imklaunchagent,
+    inputanalyticsd,
+    installcoordinationd,
+    installd,
+    intelligentroutingd,
+    InteractiveLegacyProfilesSubscriber,
+    IOUIAgent,
+    itunescloudd,
+    KernelEventAgent,
+    "kernelmanager_helper",
+    kernelmanagerd,
+    keybagd,
+    keyboardservicesd,
+    "knowledge-agent",
+    KonaSynthesizer,
+    launchd,
+    launchservicesd,
+    LegacyProfilesSubscriber,
+    linkd,
+    localizationswitcherd,
+    localspeechrecognition,
+    locationd,
+    lockdownmoded,
+    logd,
+    "logd_helper",
+    logind,
+    loginwindow,
+    lsd,
+    MacinTalkAUSP,
+    maild,
+    ManagedConfigurationFilesSubscriber,
+    ManagedSettingsAgent,
+    ManagementTestSubscriber,
+    MauiAUSP,
+    mdbulkimport,
+    mDNSResponder,
+    mDNSResponderHelper,
+    mds,
+    "mds_stores",
+    mdworker,
+    "mdworker_shared",
+    mdwrite,
+    mediaanalysisd,
+    mediaremoteagent,
+    mediaremoted,
+    MENotificationAgent,
+    MessagesActionExtension,
+    milod,
+    mlhostd,
+    mobileassetd,
+    mobiletimerd,
+    ModelCatalogAgent,
+    modelcatalogd,
+    MTLAssetUpgraderD,
+    MTLCompilerService,
+    naturallanguaged,
+    ndoagent,
+    neagent,
+    nearbyd,
+    nehelper,
+    nesessionmanager,
+    netbiosd,
+    networkserviceproxy,
+    newsd,
+    NewsToday2,
+    nfcd,
+    notifyd,
+    nsurlsessiond,
+    "online-auth-agent",
+    opendirectoryd,
+    osanalyticshelper,
+    "parsec-fbf",
+    parsecd,
+    PasscodeSettingsSubscriber,
+    PasswordBreachAgent,
+    pboard,
+    pbs,
+    peopled,
+    PerfPowerTelemetryClientRegistrationService,
+    photolibraryd,
+    pkd,
+    PlugInLibraryService,
+    powerd,
+    powerexperienced,
+    PowerUIAgent,
+    proactived,
+    promotedcontentd,
+    ps,
+    QuickLookUIService,
+    rapportd,
+    remindd,
+    remoted,
+    remotemanagementd,
+    remotepairingd,
+    RemotePairingDataVaultHelper,
+    replayd,
+    replicatord,
+    ReportCrash,
+    revisiond,
+    routined,
+    rpcsvchost,
+    rtcreportingd,
+    "Runner.Listener",
+    "Runner.Worker",
+    runningboardd,
+    SafariBookmarksSyncAgent,
+    SafariLinkExtension,
+    "Safe Exam Browser",
+    SafeEjectGPUAgent,
+    SafeEjectGPUService,
+    sandboxd,
+    ScopedBookmarkAgent,
+    ScreenSharingSubscriber,
+    ScreenTimeAgent,
+    searchpartyd,
+    searchpartyuseragent,
+    secd,
+    secinitd,
+    securityd,
+    "securityd_system",
+    SecuritySubscriber,
+    seld,
+    SetStoreUpdateService,
+    sharedfilelistd,
+    sharingd,
+    simdiskimaged,
+    "SimLaunchHost.x86",
+    SimulatorTrampoline,
+    SiriAUSP,
+    siriinferenced,
+    siriknowledged,
+    SiriSuggestionsBookkeepingService,
+    sleep,
+    smd,
+    sociallayerd,
+    socketfilterfw,
+    softwareupdated,
+    SoftwareUpdateNotificationManager,
+    SoftwareUpdateSubscriber,
+    spindump,
+    "spindump_agent",
+    Spotlight,
+    spotlightknowledged,
+    StatusKitAgent,
+    StocksKitService,
+    storagekitd,
+    sudo,
+    suggestd,
+    suhelperd,
+    swcd,
+    symptomsd,
+    "symptomsd-diag",
+    syncdefaultsd,
+    sysextd,
+    syslogd,
+    sysmond,
+    syspolicyd,
+    "system_installd",
+    systemsoundserverd,
+    systemstats,
+    systemstatusd,
+    SystemUIServer,
+    talagentd,
+    taskgated,
+    tccd,
+    TextInputMenuAgent,
+    TextInputSwitcher,
+    thermalmonitord,
+    timed,
+    transparencyd,
+    triald,
+    "triald_system",
+    trustd,
+    trustdFileHelper,
+    UARPUpdaterServiceAFU,
+    UARPUpdaterServiceDFU,
+    UARPUpdaterServiceDisplay,
+    UARPUpdaterServiceHID,
+    UARPUpdaterServiceLegacyAudio,
+    UARPUpdaterServiceUSBPD,
+    UIKitSystem,
+    universalaccessd,
+    UsageTrackingAgent,
+    usbd,
+    usbmuxd,
+    useractivityd,
+    UserEventAgent,
+    usermanagerd,
+    usernoted,
+    usernotificationsd,
+    UVCAssistant,
+    ViewBridgeAuxiliary,
+    voicebankingd,
+    WallpaperAgent,
+    wallpaperexportd,
+    WallpaperImageExtension,
+    "WardaSynthesizer_x86_64",
+    warmd,
+    weatherd,
+    WeatherWidget,
+    webprivacyd,
+    WiFiAgent,
+    WiFiCloudAssetsXPCService,
+    wifip2pd,
+    WindowManager,
+    WindowServer,
+    WirelessRadioManagerd,
+    WorldClockWidget,
+    writeconfig,
+    XProtectPluginService
+)
+2026/11/04 14:09:37:670  -[SEBController startProcessWatcher]
+2026/11/04 14:09:37:670  -[SEBController startWindowWatcher]
+2026/11/04 14:09:37:670  -[SEBController didFinishLaunchingWithSettingsProcessesChecked] openMainBrowserWindow
+2026/11/04 14:09:37:670  -[SEBController startExamWithFallback:]
+2026/11/04 14:09:37:670  -[SEBController startExamAccessibilityCheckWithFallback:]
+2026/11/04 14:09:37:690  NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain
+2026/11/04 14:09:37:690  Open MainBrowserWindow with browserViewMode: 1
+2026/11/04 14:09:37:690  Open MainBrowserWindow with start URL: https://safeexambrowser.org/start
+2026/11/04 14:09:37:776  BrowserWindow <SEBBrowserWindow: 0x7fe5859a31b0> did become key
+2026/11/04 14:09:37:776  BrowserWindow <SEBBrowserWindow: 0x7fe5859a31b0> did become main
+2026/11/04 14:09:37:777  Reinforcing the kiosk mode was requested
+2026/11/04 14:09:37:778  -[SEBController switchKioskModeAppsAllowed:overrideShowMenuBar:] allowApps: 1 overrideShowMenuBar: 0
+2026/11/04 14:09:37:778  -[SEBController startKioskModeThirdPartyAppsAllowed:overrideShowMenuBar:]
+2026/11/04 14:09:37:779  NSApp setPresentationOptions: 332
+2026/11/04 14:09:37:787  windowDidChangeScreen from previous <NSScreen: 0x600001b805a0> to <NSScreen: 0x600001be38a0>, level 0
+2026/11/04 14:09:37:787  -[SEBBrowserWindowController adjustWindowForScreen:moveBack:] newScreen: <NSScreen: 0x600001be38a0> moveBack: 0 (previous screen: <NSScreen: 0x600001b805a0>)
+2026/11/04 14:09:37:788  Usable screen frame (considering menu bar & SEB dock): {
+    Height = 1040;
+    Width = 1920;
+    X = 0;
+    Y = 40;
+}
+2026/11/04 14:09:37:788  Adjusted window frame for new screen to: {
+    Height = 1015;
+    Width = 1000;
+    X = 920;
+    Y = 40;
+}
+2026/11/04 14:09:37:788  -[SEBController adjustModalAlertWindowLevels:] allowSwitchToThirdPartyApps: 1
+2026/11/04 14:09:37:788  -[SEBController changeWindowLevels:] allowApps: 1
+2026/11/04 14:09:37:788  -[SEBOSXBrowserController browserWindowsChangeLevelAllowApps:] allowApps: 1
+2026/11/04 14:09:37:788  -[SEBOSXBrowserController setLevelForBrowserWindow:elevateLevels:] browserWindow: (null) elevateLevels: 0
+2026/11/04 14:09:37:791  -[SEBController adjustModalAlertWindowLevels:] allowSwitchToThirdPartyApps: 0
+2026/11/04 14:09:37:791  requestedReinforceKioskMode: Reopening cap windows.
+2026/11/04 14:09:37:795  -[SEBController coverScreens] Open background windows on all available screens
+2026/11/04 14:09:37:797  Screen is active, device description: {
+    NSDeviceBitsPerSample = 8;
+    NSDeviceColorSpaceName = NSCalibratedRGBColorSpace;
+    NSDeviceIsScreen = YES;
+    NSDeviceResolution = "NSSize: {72, 72}";
+    NSDeviceSize = "NSSize: {1920, 1080}";
+    NSScreenNumber = 25165824;
+}
+2026/11/04 14:09:37:797  Opening background covering window with frame {
+    Height = 1080;
+    Width = 1920;
+    X = 0;
+    Y = 0;
+} and window level 0
+2026/11/04 14:09:37:800  Cap window <CapWindowController: 0x600000ddb4e0> init.
+2026/11/04 14:09:37:801  -[SEBController closeCoveringWindows:]: (
+    "<NSWindow: 0x7fe584f94810>"
+)
+2026/11/04 14:09:37:803  -[SEBController setElevateWindowLevels]: allowSwitchToApplications=0, _isAACEnabled=0, _wasAACEnabled=0 → elevateWindowLevels=1, privateUserDefaults=0
+2026/11/04 14:09:37:804  -[SEBController switchKioskModeAppsAllowed:overrideShowMenuBar:] allowApps: 0 overrideShowMenuBar: 0
+2026/11/04 14:09:37:804  -[SEBController startKioskModeThirdPartyAppsAllowed:overrideShowMenuBar:]
+2026/11/04 14:09:37:805  NSApp setPresentationOptions: 372
+2026/11/04 14:09:37:812  windowDidChangeScreen from previous <NSScreen: 0x600001be38a0> to <NSScreen: 0x600001b896e0>, level 0
+2026/11/04 14:09:37:812  -[SEBBrowserWindowController adjustWindowForScreen:moveBack:] newScreen: <NSScreen: 0x600001b896e0> moveBack: 0 (previous screen: <NSScreen: 0x600001be38a0>)
+2026/11/04 14:09:37:814  Usable screen frame (considering menu bar & SEB dock): {
+    Height = 1040;
+    Width = 1920;
+    X = 0;
+    Y = 40;
+}
+2026/11/04 14:09:37:814  Adjusted window frame for new screen to: {
+    Height = 1015;
+    Width = 1000;
+    X = 920;
+    Y = 40;
+}
+2026/11/04 14:09:37:814  -[SEBController adjustModalAlertWindowLevels:] allowSwitchToThirdPartyApps: 0
+2026/11/04 14:09:37:814  -[SEBController changeWindowLevels:] allowApps: 0
+2026/11/04 14:09:37:814  -[SEBOSXBrowserController browserWindowsChangeLevelAllowApps:] allowApps: 0
+2026/11/04 14:09:37:814  -[SEBOSXBrowserController setLevelForBrowserWindow:elevateLevels:] browserWindow: (null) elevateLevels: 1
+2026/11/04 14:09:37:816  -[SEBController adjustModalAlertWindowLevels:] allowSwitchToThirdPartyApps: 0
+2026/11/04 14:09:37:829  BrowserWindow <SEBBrowserWindow: 0x7fe5859a31b0>: Title of current Page: Safe Exam Browser 3.7.2b1
+2026/11/04 14:09:37:833  Opening modern WebView
+2026/11/04 14:09:37:838  WKWebViewConfiguration Optional(<WKWebViewConfiguration: 0x7fe584f83d80; processPool = <WKProcessPool: 0x7fe585089a00; configuration = <_WKProcessPoolConfiguration: 0x600000ae5140>>; preferences = <WKPreferences: 0x600000dc6be0>>)
+2026/11/04 14:09:37:846  -[SEBOSXBrowserController setLevelForBrowserWindow:elevateLevels:] browserWindow: <SEBBrowserWindow: 0x7fe5859a31b0> elevateLevels: 1
+2026/11/04 14:09:37:855  Set main browser window: <SEBBrowserWindow: 0x7fe5859a31b0>
+2026/11/04 14:09:37:865  -[SEBLockedViewController appendErrorString:withTime:configKey:]: Secure session was started
+ 2026-11-04 14:09:37  
+2026/11/04 14:09:37:877  -[SEBLockedViewController addLockedExam:configKey:]: Secure session was started
+2026/11/04 14:09:38:042  Application Window Server with bundle ID (null) has opened a window with level 2147483630
+2026/11/04 14:09:38:042  Check if application Window Server ((null)) is a signed system executable
+2026/11/04 14:09:38:051  Dynamically validated code signature of process with PID 167, status 0
+2026/11/04 14:09:38:051  Code signature of process with PID 167 was checked and it positively identifies macOS system software.
+2026/11/04 14:09:38:051  Yes, application Window Server ((null)) is a signed system executable
+2026/11/04 14:09:38:052  Application TextInputSwitcher with bundle ID com.apple.TextInputSwitcher has opened a window with level 2147483628
+2026/11/04 14:09:38:052  Check if application TextInputSwitcher (com.apple.TextInputSwitcher) is a signed system executable
+2026/11/04 14:09:38:058  Dynamically validated code signature of process with PID 501, status 0
+2026/11/04 14:09:38:059  Code signature of process with PID 501 was checked and it positively identifies macOS system software.
+2026/11/04 14:09:38:059  Yes, application TextInputSwitcher (com.apple.TextInputSwitcher) is a signed system executable
+2026/11/04 14:09:38:268  webView decidePolicyFor navigationAction: Target frame nil, URL: nil
+2026/11/04 14:09:38:269  Checking for quit URL: comparing request URL 'https://safeexambrowser.org/start' (trimmed) with quit URL '' (trimmed)
+2026/11/04 14:09:38:515  System model ID: Macmini6,2
+2026/11/04 14:09:38:516  Current Settings: Maximum allowed displays: 1, use built-in display.
+2026/11/04 14:09:38:527  Display Unknown Display (ID 25165824) from vendor 4102 with Resolution 1920.000000 x 1080.000000
+ is built-in
+ is main
+ is not mirrored
+ is not HW mirrored
+ is not always mirrored
+2026/11/04 14:09:38:528  Display Unknown Display (ID 25165824) is claiming to be built-in
+2026/11/04 14:09:38:528  All available screens: (
+    "<NSScreen: 0x600001b896e0>"
+)
+2026/11/04 14:09:38:528  Use built-in option set, using display with ID 25165824
+2026/11/04 14:09:38:528  Found matching screen (<NSScreen: 0x600001b896e0>) for main display (ID 0)
+2026/11/04 14:09:38:528  Move all browser windows to new main screen <NSScreen: 0x600001b896e0>.
+2026/11/04 14:09:38:535  Adjusting screen locking
+2026/11/04 14:09:38:535  -[SEBController coverScreens] Open background windows on all available screens
+2026/11/04 14:09:38:537  Screen is active, device description: {
+    NSDeviceBitsPerSample = 8;
+    NSDeviceColorSpaceName = NSCalibratedRGBColorSpace;
+    NSDeviceIsScreen = YES;
+    NSDeviceResolution = "NSSize: {72, 72}";
+    NSDeviceSize = "NSSize: {1920, 1080}";
+    NSScreenNumber = 25165824;
+}
+2026/11/04 14:09:38:537  Opening background covering window with frame {
+    Height = 1080;
+    Width = 1920;
+    X = 0;
+    Y = 0;
+} and window level 26
+2026/11/04 14:09:38:544  Cap window <CapWindowController: 0x600000dde1c0> init.
+2026/11/04 14:09:38:545  -[SEBController closeCoveringWindows:]: (
+    "<NSWindow: 0x7fe585956fc0>"
+)
+2026/11/04 14:09:38:547  [SEBDockController moveDockToScreen: <NSScreen: 0x600001b896e0>]
+2026/11/04 14:09:38:804  webView decidePolicyFor navigationAction: Target frame nil, URL: nil
+2026/11/04 14:09:38:804  Checking for quit URL: comparing request URL 'https://safeexambrowser.org/start' (trimmed) with quit URL '' (trimmed)
+2026/11/04 14:09:38:961  Main frame load of https://safeexambrowser.org/start/ returned HTTP status code 200
+2026/11/04 14:09:38:978  WKWebView didCommit
+2026/11/04 14:09:38:978  updateKeyJSVariables: Frame URL https://safeexambrowser.org/start/
+2026/11/04 14:09:38:979  updateKeyJSVariables: Frame URL https://safeexambrowser.org/start/
+2026/11/04 14:09:39:036  webView decidePolicyFor navigationAction: Target frame nil, URL: nil
+2026/11/04 14:09:39:036  Checking for quit URL: comparing request URL 'https://safeexambrowser.org/start/start_en.html' (trimmed) with quit URL '' (trimmed)
+2026/11/04 14:09:39:200  Main frame load of https://safeexambrowser.org/start/start_en.html returned HTTP status code 200
+2026/11/04 14:09:39:206  WKWebView didCommit
+2026/11/04 14:09:39:206  updateKeyJSVariables: Frame URL https://safeexambrowser.org/start/start_en.html
+2026/11/04 14:09:39:206  updateKeyJSVariables: Frame URL https://safeexambrowser.org/start/start_en.html
+2026/11/04 14:09:39:248  BrowserWindow <SEBBrowserWindow: 0x7fe5859a31b0>: Title of current Page: Safe Exam Browser 3.7.2b1  —  Safe Exam Browser
+2026/11/04 14:09:39:737  BrowserWindow <SEBBrowserWindow: 0x7fe5859a31b0>: Title of current Page: Safe Exam Browser 3.7.2b1  —  Safe Exam Browser
+2026/11/04 14:09:39:762  Started application Open and Save Panel Service with bundle ID: com.apple.appkit.xpc.openAndSavePanelService
+2026/11/04 14:09:39:890  -[SEBController performAfterStartActions:]
+2026/11/04 14:09:39:891  Performing after start actions
+2026/11/04 14:09:39:892  Reinforcing the kiosk mode was requested
+2026/11/04 14:09:39:893  -[SEBController switchKioskModeAppsAllowed:overrideShowMenuBar:] allowApps: 1 overrideShowMenuBar: 0
+2026/11/04 14:09:39:894  -[SEBController startKioskModeThirdPartyAppsAllowed:overrideShowMenuBar:]
+2026/11/04 14:09:39:895  NSApp setPresentationOptions: 332
+2026/11/04 14:09:39:905  windowDidChangeScreen from previous <NSScreen: 0x600001b896e0> to <NSScreen: 0x600001be67c0>, level 27
+2026/11/04 14:09:39:905  -[SEBBrowserWindowController adjustWindowForScreen:moveBack:] newScreen: <NSScreen: 0x600001be67c0> moveBack: 0 (previous screen: <NSScreen: 0x600001b896e0>)
+2026/11/04 14:09:39:909  Usable screen frame (considering menu bar & SEB dock): {
+    Height = 1040;
+    Width = 1920;
+    X = 0;
+    Y = 40;
+}
+2026/11/04 14:09:39:909  Adjusted window frame for new screen to: {
+    Height = 1040;
+    Width = 1920;
+    X = 0;
+    Y = 40;
+}
+2026/11/04 14:09:39:910  Sending notification that main screen changed
+2026/11/04 14:09:39:910  [SEBDockController moveDockToScreen: <NSScreen: 0x600001b896e0>]
+2026/11/04 14:09:39:911  -[SEBController adjustModalAlertWindowLevels:] allowSwitchToThirdPartyApps: 1
+2026/11/04 14:09:39:911  -[SEBController changeWindowLevels:] allowApps: 1
+2026/11/04 14:09:39:912  -[SEBOSXBrowserController browserWindowsChangeLevelAllowApps:] allowApps: 1
+2026/11/04 14:09:39:912  -[SEBOSXBrowserController setLevelForBrowserWindow:elevateLevels:] browserWindow: <SEBBrowserWindow: 0x7fe5859a31b0> elevateLevels: 0
+2026/11/04 14:09:39:918  -[SEBController adjustModalAlertWindowLevels:] allowSwitchToThirdPartyApps: 0
+2026/11/04 14:09:39:920  requestedReinforceKioskMode: Reopening cap windows.
+2026/11/04 14:09:39:924  -[SEBController coverScreens] Open background windows on all available screens
+2026/11/04 14:09:39:927  Screen is active, device description: {
+    NSDeviceBitsPerSample = 8;
+    NSDeviceColorSpaceName = NSCalibratedRGBColorSpace;
+    NSDeviceIsScreen = YES;
+    NSDeviceResolution = "NSSize: {72, 72}";
+    NSDeviceSize = "NSSize: {1920, 1080}";
+    NSScreenNumber = 25165824;
+}
+2026/11/04 14:09:39:928  Opening background covering window with frame {
+    Height = 1080;
+    Width = 1920;
+    X = 0;
+    Y = 0;
+} and window level 0
+2026/11/04 14:09:39:932  Cap window <CapWindowController: 0x600000dddcb0> init.
+2026/11/04 14:09:39:933  -[SEBController closeCoveringWindows:]: (
+    "<NSWindow: 0x7fe585a87350>"
+)
+2026/11/04 14:09:39:934  -[SEBController setElevateWindowLevels]: allowSwitchToApplications=0, _isAACEnabled=0, _wasAACEnabled=0 → elevateWindowLevels=1, privateUserDefaults=0
+2026/11/04 14:09:39:936  -[SEBController switchKioskModeAppsAllowed:overrideShowMenuBar:] allowApps: 0 overrideShowMenuBar: 0
+2026/11/04 14:09:39:937  -[SEBController startKioskModeThirdPartyAppsAllowed:overrideShowMenuBar:]
+2026/11/04 14:09:39:938  NSApp setPresentationOptions: 372
+2026/11/04 14:09:39:950  windowDidChangeScreen from previous <NSScreen: 0x600001be67c0> to <NSScreen: 0x600001be7300>, level 0
+2026/11/04 14:09:39:950  -[SEBBrowserWindowController adjustWindowForScreen:moveBack:] newScreen: <NSScreen: 0x600001be7300> moveBack: 0 (previous screen: <NSScreen: 0x600001be67c0>)
+2026/11/04 14:09:39:953  Usable screen frame (considering menu bar & SEB dock): {
+    Height = 1040;
+    Width = 1920;
+    X = 0;
+    Y = 40;
+}
+2026/11/04 14:09:39:954  Adjusted window frame for new screen to: {
+    Height = 1040;
+    Width = 1920;
+    X = 0;
+    Y = 40;
+}
+2026/11/04 14:09:39:954  Sending notification that main screen changed
+2026/11/04 14:09:39:954  [SEBDockController moveDockToScreen: <NSScreen: 0x600001b896e0>]
+2026/11/04 14:09:39:956  -[SEBController adjustModalAlertWindowLevels:] allowSwitchToThirdPartyApps: 0
+2026/11/04 14:09:39:956  -[SEBController changeWindowLevels:] allowApps: 0
+2026/11/04 14:09:39:956  -[SEBOSXBrowserController browserWindowsChangeLevelAllowApps:] allowApps: 0
+2026/11/04 14:09:39:956  -[SEBOSXBrowserController setLevelForBrowserWindow:elevateLevels:] browserWindow: <SEBBrowserWindow: 0x7fe5859a31b0> elevateLevels: 1
+2026/11/04 14:09:39:962  -[SEBController adjustModalAlertWindowLevels:] allowSwitchToThirdPartyApps: 0
+2026/11/04 14:09:40:239  Started application QuickLookUIService (Open and Save Panel Service (Safe Exam Browser)) with bundle ID: com.apple.quicklook.QuickLookUIService
+2026/11/04 14:09:40:575  System model ID: Macmini6,2
+2026/11/04 14:09:40:576  Current Settings: Maximum allowed displays: 1, use built-in display.
+2026/11/04 14:09:40:583  Display Unknown Display (ID 25165824) from vendor 4102 with Resolution 1920.000000 x 1080.000000
+ is built-in
+ is main
+ is not mirrored
+ is not HW mirrored
+ is not always mirrored
+2026/11/04 14:09:40:583  Display Unknown Display (ID 25165824) is claiming to be built-in
+2026/11/04 14:09:40:583  All available screens: (
+    "<NSScreen: 0x600001be7300>"
+)
+2026/11/04 14:09:40:583  Use built-in option set, using display with ID 25165824
+2026/11/04 14:09:40:583  Found matching screen (<NSScreen: 0x600001be7300>) for main display (ID 0)
+2026/11/04 14:09:40:583  Move all browser windows to new main screen <NSScreen: 0x600001be7300>.
+2026/11/04 14:09:40:587  Adjusting screen locking
+2026/11/04 14:09:40:587  -[SEBController coverScreens] Open background windows on all available screens
+2026/11/04 14:09:40:588  Screen is active, device description: {
+    NSDeviceBitsPerSample = 8;
+    NSDeviceColorSpaceName = NSCalibratedRGBColorSpace;
+    NSDeviceIsScreen = YES;
+    NSDeviceResolution = "NSSize: {72, 72}";
+    NSDeviceSize = "NSSize: {1920, 1080}";
+    NSScreenNumber = 25165824;
+}
+2026/11/04 14:09:40:588  Opening background covering window with frame {
+    Height = 1080;
+    Width = 1920;
+    X = 0;
+    Y = 0;
+} and window level 26
+2026/11/04 14:09:40:591  Cap window <CapWindowController: 0x600000d8e6d0> init.
+2026/11/04 14:09:40:591  -[SEBController closeCoveringWindows:]: (
+    "<NSWindow: 0x7fe584f81080>"
+)
+2026/11/04 14:09:40:592  [SEBDockController moveDockToScreen: <NSScreen: 0x600001be7300>]
+2026/11/04 14:10:14:312  Teacher Panel: screen color change detected (Тёмная тема), locking SEB.
+2026/11/04 14:10:14:313  -[SEBOSXLockedViewController setLockdownAlertTitle:Message:]: Изменены цвета экрана: Во время контрольной были изменены настройки цветов экрана (Тёмная тема). Позовите преподавателя: для продолжения нужен пароль разблокировки.
+2026/11/04 14:10:14:315  openLockdownWindows: didLockSEBTime 2026-11-04 14:10:14 +0000, didBecomeActiveTime (null)
+2026/11/04 14:10:14:315  Locking SEB with red frontmost covering windows
+2026/11/04 14:10:14:315  -[SEBController openCoveringWindows]
+2026/11/04 14:10:14:315  Screen is active, device description: {
+    NSDeviceBitsPerSample = 8;
+    NSDeviceColorSpaceName = NSCalibratedRGBColorSpace;
+    NSDeviceIsScreen = YES;
+    NSDeviceResolution = "NSSize: {72, 72}";
+    NSDeviceSize = "NSSize: {1920, 1080}";
+    NSScreenNumber = 25165824;
+}
+2026/11/04 14:10:14:315  Opening lockdown alert covering window with frame {
+    Height = 1080;
+    Width = 1920;
+    X = 0;
+    Y = 0;
+} and window level 1000
+2026/11/04 14:10:14:321  Cap window <CapWindowController: 0x600000dde760> init.
+2026/11/04 14:10:14:322  BrowserWindow <SEBBrowserWindow: 0x7fe5859a31b0> did resign key
+2026/11/04 14:10:14:322  Current key window: <CapWindow: 0x7fe584f81080> with title 
+2026/11/04 14:10:14:334  Window <CapWindow: 0x7fe584f81080> level NSModalPanelWindowLevel (8) changed to NSMainMenuWindowLevel+6 (30), elevateWindowLevels=1
+2026/11/04 14:10:14:334  Window <CapWindow: 0x7fe584f81080> setLevel: 8 → 30 (elevateWindowLevels=1)
+2026/11/04 14:10:14:407  -[SEBLockedViewController appendErrorString:withTime:configKey:]: Screen colors changed: Тёмная тема
+ 2026-11-04 14:10:14  
+2026/11/04 14:10:22:345  Teacher Panel: screen color change detected (Тёмная тема), locking SEB.
+2026/11/04 14:10:22:363  -[SEBOSXLockedViewController setLockdownAlertTitle:Message:]: Изменены цвета экрана: Во время контрольной были изменены настройки цветов экрана (Тёмная тема). Позовите преподавателя: для продолжения нужен пароль разблокировки.
+2026/11/04 14:10:22:370  -[SEBLockedViewController appendErrorString:withTime:configKey:]: Screen colors changed: Тёмная тема
+ 2026-11-04 14:10:22  
