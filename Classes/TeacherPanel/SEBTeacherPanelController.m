@@ -109,7 +109,21 @@ static const CGFloat SEBTeacherWindowWidth = 620;
 
 // Automated UI check for the CI build: only runs if the environment variable
 // SEB_TEACHER_AUTOTEST_PASSWORD contains the correct teacher password, so it can't be
-// used to bypass the password. Shows the settings after 8 s and starts the exam after 16 s.
+// used to bypass the password. Walks through the panel and writes marker files to
+// /tmp/seb-autotest/ so the CI can take a screenshot of each stage.
+- (void)autotestMark:(NSString *)stage
+{
+    NSString *directory = @"/tmp/seb-autotest";
+    [[NSFileManager defaultManager] createDirectoryAtPath:directory withIntermediateDirectories:YES attributes:nil error:NULL];
+    [[NSData data] writeToFile:[directory stringByAppendingPathComponent:stage] atomically:YES];
+    NSLog(@"[TeacherPanel] Autotest stage: %@", stage);
+}
+
+- (void)autotestAfter:(NSTimeInterval)seconds do:(dispatch_block_t)block
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), block);
+}
+
 - (void)conditionallyRunAutotest
 {
     static BOOL autotestStarted = NO;
@@ -119,17 +133,25 @@ static const CGFloat SEBTeacherWindowWidth = 620;
         return;
     }
     autotestStarted = YES;
-    NSLog(@"[TeacherPanel] Autotest: settings in 8 s, exam start in 16 s");
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (self.completion) {
-            [self showSettingsView];
-        }
-    });
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(16 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (self.completion) {
-            [self saveAndStartPressed:self];
-        }
-    });
+    [self autotestAfter:2 do:^{ [self autotestMark:@"1-panel"]; }];
+    [self autotestAfter:4 do:^{
+        if (!self.completion) return;
+        [self showSettingsView];
+        [self autotestAfter:1.5 do:^{ [self autotestMark:@"2-settings"]; }];
+    }];
+    [self autotestAfter:8 do:^{
+        if (!self.completion) return;
+        NSView *documentView = self.settingsScrollView.documentView;
+        [documentView scrollPoint:NSMakePoint(0, NSMaxY(documentView.bounds))];
+        [self autotestAfter:1.5 do:^{ [self autotestMark:@"3-settings-bottom"]; }];
+    }];
+    [self autotestAfter:12 do:^{
+        if (!self.completion) return;
+        // The CI runner is a virtual machine: allow it for the test run.
+        self.checkboxes[@"blockVM"].state = NSControlStateValueOff;
+        [self saveAndStartPressed:self];
+        [self autotestAfter:20 do:^{ [self autotestMark:@"4-exam"]; }];
+    }];
 }
 
 - (void)finishWithStart:(BOOL)start
@@ -227,7 +249,7 @@ static const CGFloat SEBTeacherWindowWidth = 620;
     [stack setCustomSpacing:16 afterView:self.mainButtons];
     stack.translatesAutoresizingMaskIntoConstraints = NO;
 
-    NSView *view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, SEBTeacherWindowWidth, 440)];
+    NSView *view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, SEBTeacherWindowWidth, 380)];
     [view addSubview:stack];
     [NSLayoutConstraint activateConstraints:@[
         [stack.centerXAnchor constraintEqualToAnchor:view.centerXAnchor],
@@ -248,7 +270,7 @@ static const CGFloat SEBTeacherWindowWidth = 620;
         ? [NSString stringWithFormat:@"Адрес: %@", url]
         : @"Адрес: из настроек SEB / .seb файла";
     [self hidePasswordBox];
-    [self setContent:self.startView height:440];
+    [self setContent:self.startView height:380];
 }
 
 - (void)startPressed:(id)sender

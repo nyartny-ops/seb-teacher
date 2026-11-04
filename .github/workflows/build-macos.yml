@@ -67,22 +67,36 @@ jobs:
       # Проверка запуска: приложение должно остаться работать (ждать на панели
       # преподавателя), а не завершиться сразу после старта.
       # Проверка запуска и автотест интерфейса: SEB с паролем преподавателя в переменной
-      # окружения сам открывает настройки (8 с) и начинает контрольную (16 с).
-      # Скриншоты и лог кладутся в ветку dist вместе с .dmg.
+      # окружения сам проходит панель → настройки → начало контрольной и отмечает каждый
+      # этап файлом в /tmp/seb-autotest; на каждом этапе делается скриншот.
+      # Скриншоты и логи кладутся в ветку dist вместе с .dmg.
       - name: Smoke test (launch + UI autotest)
         run: |
           mkdir -p build/test
           touch build/test/.start
-          APP="build/DerivedData/Build/Products/Release/Safe Exam Browser.app"
+          rm -rf /tmp/seb-autotest
+          sudo rm -rf "/Applications/Safe Exam Browser.app"
+          sudo cp -R "build/DerivedData/Build/Products/Release/Safe Exam Browser.app" /Applications/
+          APP="/Applications/Safe Exam Browser.app"
           BIN="$APP/Contents/MacOS/$(ls "$APP/Contents/MacOS" | head -1)"
           SEB_TEACHER_AUTOTEST_PASSWORD=32123212 "$BIN" > build/test/stdout.log 2>&1 &
           PID=$!
-          shot() { screencapture -x "build/test/$1.png" 2>/dev/null || echo "screencapture failed for $1"; }
-          sleep 5;  shot 1-panel
-          sleep 7;  shot 2-settings
-          sleep 20; shot 3-exam
+          for stage in 1-panel 2-settings 3-settings-bottom 4-exam; do
+            for i in $(seq 1 90); do
+              [ -f "/tmp/seb-autotest/$stage" ] && break
+              kill -0 $PID 2>/dev/null || break
+              sleep 1
+            done
+            if [ -f "/tmp/seb-autotest/$stage" ]; then
+              screencapture -x "build/test/$stage.png" 2>/dev/null || echo "screencapture failed for $stage"
+              echo "stage $stage: screenshot taken"
+            else
+              echo "stage $stage: not reached"
+              screencapture -x "build/test/$stage-NOT-REACHED.png" 2>/dev/null || true
+            fi
+          done
           ALIVE=0
-          if kill -0 $PID 2>/dev/null; then ALIVE=1; echo "SEB is running after 32 s (PID $PID) - OK"; kill -9 $PID || true; fi
+          if kill -0 $PID 2>/dev/null; then ALIVE=1; echo "SEB is running - OK"; kill -9 $PID || true; fi
           find ~/Library/Logs -newer build/test/.start -type f \( -iname "*.log" -o -iname "*.ips" -o -iname "*.crash" \) 2>/dev/null | head -20 | while read -r f; do cp "$f" build/test/ 2>/dev/null; done
           ls -la build/test
           if [ "$ALIVE" != "1" ]; then
