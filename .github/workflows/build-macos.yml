@@ -96,7 +96,7 @@ jobs:
             fi
           done
           sleep 15; screencapture -x build/test/5-exam-later.png 2>/dev/null || true
-          log show --last 3m --style compact --predicate 'process CONTAINS "WebKit" OR process CONTAINS "Safe Exam" OR subsystem == "com.apple.WebKit"' 2>/dev/null | grep -iE "error|fail|crash|terminat|denied|sandbox" | tail -300 > build/test/system-webkit.log || true
+          log show --last 3m --style compact --predicate 'process CONTAINS "WebKit" OR process CONTAINS "Safe Exam" OR subsystem == "com.apple.WebKit"' 2>/dev/null | grep -iE "error|fail|crash|terminat|denied|sandbox" | head -300 > build/test/system-webkit.log || true
           ALIVE=0
           if kill -0 $PID 2>/dev/null; then ALIVE=1; echo "SEB is running - OK"; kill -9 $PID || true; fi
           find ~/Library/Logs -newer build/test/.start -type f \( -iname "*.log" -o -iname "*.ips" -o -iname "*.crash" \) 2>/dev/null | head -20 | while read -r f; do cp "$f" build/test/ 2>/dev/null; done

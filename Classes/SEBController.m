@@ -3209,6 +3209,10 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
         NSString *bundleID = runningApplication.bundleIdentifier;
         if (bundleID) {
             // NSRunningApplication
+            // Teacher build: never terminate SEB's own WebKit networking process
+            if ([bundleID isEqualToString:WebKitNetworkingProcessBundleID] && [self isWebKitProcessOwnedBySEB:processPID]) {
+                continue;
+            }
             NSPredicate *processFilter = [NSPredicate predicateWithFormat:@"%@ LIKE self", bundleID];
             NSArray *matchingProhibitedApplications = [prohibitedApplications filteredArrayUsingPredicate:processFilter];
             if (matchingProhibitedApplications.count != 0) {
@@ -7816,6 +7820,31 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
+// YES if a WebKit helper process (networking) belongs to SEB itself. The responsible
+// process of SEB's WebKit XPC services is SEB - or, if SEB was started from Terminal, a
+// script or another app, the process responsible for SEB. Previously only the first case
+// was recognized, so SEB terminated its own networking process and pages stayed blank.
+- (BOOL) isWebKitProcessOwnedBySEB:(pid_t)processPID
+{
+    typedef pid_t (*pidResolver)(pid_t pid);
+    static pidResolver resolver = NULL;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        resolver = (pidResolver)dlsym(RTLD_DEFAULT, "responsibility_get_pid_responsible_for_pid");
+    });
+    if (!resolver) {
+        // Can't determine ownership: don't risk breaking SEB's own web views.
+        return YES;
+    }
+    pid_t responsiblePID = resolver(processPID);
+    pid_t sebResponsiblePID = resolver(sebPID);
+    BOOL owned = (responsiblePID == sebPID) || (sebResponsiblePID > 1 && responsiblePID == sebResponsiblePID);
+    DDLogVerbose(@"WebKit process PID %d: responsible PID %d, SEB PID %d (responsible %d) -> %@",
+                 processPID, responsiblePID, sebPID, sebResponsiblePID, owned ? @"SEB's own" : @"foreign");
+    return owned;
+}
+
+
 - (BOOL) killApplication:(NSRunningApplication *)application
 {
     NSString *appLocalizedName = application.localizedName;
@@ -10148,16 +10177,10 @@ conditionallyForWindow:(NSWindow *)window
                 
                 NSArray *matchingProhibitedApplications = [prohibitedApplications filteredArrayUsingPredicate:processFilter];
                 if (matchingProhibitedApplications.count != 0) {
-                    if ([bundleID isEqualToString:WebKitNetworkingProcessBundleID]) {
-                        pid_t processPID = startedApplication.processIdentifier;
-                        typedef pid_t (*pidResolver)(pid_t pid);
-                        pidResolver resolver = dlsym(RTLD_NEXT, "responsibility_get_pid_responsible_for_pid");
-                        pid_t trueParentPid = resolver(processPID);
-                        DDLogVerbose(@"PID: %d - Bundle ID: %@ - True Parent PID: %d", processPID, bundleID, trueParentPid);
-                        if (trueParentPid == sebPID) {
-                            DDLogDebug(@"Not terminating instance of WebKit networking process started by SEB");
-                            return;
-                        }
+                    if ([bundleID isEqualToString:WebKitNetworkingProcessBundleID] &&
+                        [self isWebKitProcessOwnedBySEB:startedApplication.processIdentifier]) {
+                        DDLogDebug(@"Not terminating instance of WebKit networking process started by SEB");
+                        continue;
                     }
                     [self killApplication:startedApplication];
                 }
