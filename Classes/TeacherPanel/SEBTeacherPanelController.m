@@ -149,6 +149,8 @@ static const CGFloat SEBTeacherWindowWidth = 620;
         if (!self.completion) return;
         // The CI runner is a virtual machine: allow it for the test run.
         self.checkboxes[@"blockVM"].state = NSControlStateValueOff;
+        // Screenshots of SEB windows are blocked by default; allow them so the CI can see the exam.
+        self.checkboxes[@"blockScreenCapture"].state = NSControlStateValueOff;
         [self saveAndStartPressed:self];
         [self autotestAfter:20 do:^{ [self autotestMark:@"4-exam"]; }];
     }];
