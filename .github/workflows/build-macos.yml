@@ -79,6 +79,8 @@ jobs:
           sudo cp -R "build/DerivedData/Build/Products/Release/Safe Exam Browser.app" /Applications/
           APP="/Applications/Safe Exam Browser.app"
           BIN="$APP/Contents/MacOS/$(ls "$APP/Contents/MacOS" | head -1)"
+          defaults delete -g AppleInterfaceStyle 2>/dev/null || true
+          printf 'CLIPBOARD-TEST-42' | pbcopy
           SEB_TEACHER_AUTOTEST_PASSWORD=32123212 "$BIN" > build/test/stdout.log 2>&1 &
           PID=$!
           for stage in 1-panel 2-settings 3-settings-bottom 4-exam; do
@@ -96,6 +98,12 @@ jobs:
             fi
           done
           sleep 15; screencapture -x build/test/5-exam-later.png 2>/dev/null || true
+          # Private clipboard is switched off in the autotest: the system clipboard must survive the exam start
+          CLIP="$(pbpaste)"; echo "clipboard after exam start: '$CLIP'" | tee build/test/clipboard.txt
+          # Color guard is switched on in the autotest: switching to dark mode must lock SEB
+          defaults write -g AppleInterfaceStyle Dark
+          sleep 8; screencapture -x build/test/6-color-lock.png 2>/dev/null || true
+          defaults delete -g AppleInterfaceStyle 2>/dev/null || true
           log show --last 3m --style compact --predicate 'process CONTAINS "WebKit" OR process CONTAINS "Safe Exam" OR subsystem == "com.apple.WebKit"' 2>/dev/null | grep -iE "error|fail|crash|terminat|denied|sandbox" | head -300 > build/test/system-webkit.log || true
           ALIVE=0
           if kill -0 $PID 2>/dev/null; then ALIVE=1; echo "SEB is running - OK"; kill -9 $PID || true; fi
