@@ -104,6 +104,32 @@ static const CGFloat SEBTeacherWindowWidth = 620;
     [self.window center];
     [NSApp activateIgnoringOtherApps:YES];
     [self.window makeKeyAndOrderFront:self];
+    [self conditionallyRunAutotest];
+}
+
+// Automated UI check for the CI build: only runs if the environment variable
+// SEB_TEACHER_AUTOTEST_PASSWORD contains the correct teacher password, so it can't be
+// used to bypass the password. Shows the settings after 8 s and starts the exam after 16 s.
+- (void)conditionallyRunAutotest
+{
+    static BOOL autotestStarted = NO;
+    NSString *password = [NSProcessInfo processInfo].environment[@"SEB_TEACHER_AUTOTEST_PASSWORD"];
+    if (autotestStarted || password.length == 0 ||
+        ![[SEBTeacherSettings sharedSettings] checkTeacherPassword:password]) {
+        return;
+    }
+    autotestStarted = YES;
+    NSLog(@"[TeacherPanel] Autotest: settings in 8 s, exam start in 16 s");
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (self.completion) {
+            [self showSettingsView];
+        }
+    });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(16 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (self.completion) {
+            [self saveAndStartPressed:self];
+        }
+    });
 }
 
 - (void)finishWithStart:(BOOL)start

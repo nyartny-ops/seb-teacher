@@ -208,8 +208,12 @@ static void SEBTeacherSwizzle(Class cls, SEL original, SEL replacement)
                                       free:YES standard:YES strict:NO],
             [SEBTeacherOption optionWithID:@"showTaskBar" section:0
                                      title:@"Показывать нижнюю панель SEB"
-                                      hint:@"Часы, заряд батареи, Wi-Fi и кнопки SEB внизу экрана."
+                                      hint:@"Часы, заряд батареи и кнопки SEB внизу экрана."
                                       free:YES standard:YES strict:YES],
+            [SEBTeacherOption optionWithID:@"showWiFi" section:0
+                                     title:@"Wi-Fi на нижней панели"
+                                      hint:@"Показ и выбор сети Wi-Fi. Нужен доступ к геолокации: macOS спросит его при запуске, и запуск будет дольше."
+                                      free:NO standard:NO strict:NO],
 
             // 1 — Ограничения системы
             [SEBTeacherOption optionWithID:@"blockAppSwitching" section:1
@@ -260,7 +264,7 @@ static void SEBTeacherSwizzle(Class cls, SEL original, SEL replacement)
             // 2 — Дополнения для студентов
             [SEBTeacherOption optionWithID:@"spellCheck" section:2
                                      title:@"Проверка орфографии"
-                                      hint:@"Подчёркивание ошибок в полях ввода."
+                                      hint:@"Подчёркивание ошибок в полях ввода (без автозамены)."
                                       free:YES standard:NO strict:NO],
             [SEBTeacherOption optionWithID:@"dictionary" section:2
                                      title:@"Словарь"
@@ -276,11 +280,11 @@ static void SEBTeacherSwizzle(Class cls, SEL original, SEL replacement)
                                       free:NO standard:NO strict:NO],
             [SEBTeacherOption optionWithID:@"print" section:2
                                      title:@"Печать"
-                                      hint:@"Печать страницы контрольной."
+                                      hint:@"⌘P и кнопки «Печать» на сайте."
                                       free:YES standard:NO strict:NO],
             [SEBTeacherOption optionWithID:@"find" section:2
                                      title:@"Поиск по странице (⌘F)"
-                                      hint:@"Поиск текста на открытой странице."
+                                      hint:@"⌘F, ⌘G — поиск текста на странице, в том числе в полноэкранном режиме."
                                       free:YES standard:YES strict:NO],
             [SEBTeacherOption optionWithID:@"zoom" section:2
                                      title:@"Масштабирование страницы"
@@ -582,6 +586,8 @@ static void SEBTeacherSwizzle(Class cls, SEL original, SEL replacement)
     setInt(@"newBrowserWindowByLinkPolicy", on(@"newWindows") ? openInNewWindow : openInSameWindow);
     setBool(@"blockPopUpWindows", !on(@"newWindows"));
     setBool(@"showTaskBar", on(@"showTaskBar"));
+    // Without Wi-Fi controls SEB doesn't need (and doesn't ask for) Location Services.
+    setBool(@"hideWiFiControls", !on(@"showWiFi"));
 
     // Ограничения системы
     setBool(@"allowSwitchToApplications", !on(@"blockAppSwitching"));
@@ -592,11 +598,23 @@ static void SEBTeacherSwizzle(Class cls, SEL original, SEL replacement)
     setBool(@"screenSharingMacEnforceBlocked", on(@"blockScreenSharing"));
     setBool(@"allowVirtualMachine", !on(@"blockVM"));
     setBool(@"enablePrivateClipboard", on(@"privateClipboard"));
+    // enablePrivateClipboardMacEnforce defaults to YES and would force the private
+    // clipboard even with the switch off - it has to follow the teacher switch too.
+    setBool(@"enablePrivateClipboardMacEnforce", on(@"privateClipboard"));
     setBool(@"detectAccessibilityApps", on(@"detectAccessibilityApps"));
     setBool(@"detectStoppedProcess", on(@"detectStoppedProcess"));
 
     // Дополнения
     setBool(@"allowSpellCheck", on(@"spellCheck"));
+    // SEBApplication switches continuous spell checking off for the whole app at launch;
+    // WebKit reads these plain (unencrypted) defaults when it first checks spelling.
+    // Automatic correction / text replacement always stay off.
+    NSUserDefaults *standard = [NSUserDefaults standardUserDefaults];
+    [standard setBool:on(@"spellCheck") forKey:@"WebContinuousSpellCheckingEnabled"];
+    [standard setBool:on(@"spellCheck") forKey:@"NSAllowContinuousSpellChecking"];
+    [standard setBool:NO forKey:@"WebAutomaticSpellingCorrectionEnabled"];
+    [standard setBool:NO forKey:@"NSAutomaticSpellingCorrectionEnabled"];
+    [standard setBool:NO forKey:@"WebAutomaticTextReplacementEnabled"];
     setBool(@"allowDictionaryLookup", on(@"dictionary"));
     setBool(@"allowDictation", on(@"dictation"));
     setBool(@"allowSiri", on(@"siri"));

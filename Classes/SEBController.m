@@ -5752,9 +5752,23 @@ extern int csops(pid_t pid, unsigned int ops, void *useraddr, size_t usersize);
 - (void)clearPasteboardSavingCurrentString
 {
     [self saveCurrentPasteboardString];
+    // Teacher Panel: with the private clipboard switched off the system clipboard is
+    // shared with other apps, so its content must not be wiped when the session starts.
+    if (![self teacherPrivateClipboardActive]) {
+        DDLogInfo(@"Private clipboard disabled: not clearing the system pasteboard.");
+        return;
+    }
     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
     //NSInteger changeCount = [pasteboard clearContents];
     [pasteboard clearContents];
+}
+
+// Teacher Panel: YES if SEB currently isolates the clipboard from the system clipboard
+- (BOOL)teacherPrivateClipboardActive
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    return [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrivateClipboard"] ||
+           [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrivateClipboardMacEnforce"];
 }
 
 - (void)saveCurrentPasteboardString
@@ -5783,12 +5797,20 @@ extern int csops(pid_t pid, unsigned int ops, void *useraddr, size_t usersize);
 // If selected in Preferences, then the current Browser Exam Key is copied to the pasteboard instead
 - (void)clearPasteboardCopyingBrowserExamKey
 {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    // Teacher Panel: keep the shared system clipboard when the private clipboard is off
+    // (unless keys have to be copied to the clipboard when quitting).
+    if (![self teacherPrivateClipboardActive] &&
+        ![preferences secureBoolForKey:@"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting"] &&
+        ![preferences secureBoolForKey:@"org_safeexambrowser_copyConfigKeyToClipboardWhenQuitting"]) {
+        return;
+    }
+
     // Clear Pasteboard
     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
     [pasteboard clearContents];
     
     // Write Browser Exam Key to clipboard if enabled in prefs
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSData *hashKey;
     NSMutableArray *pasteboardStrings = NSMutableArray.new;
     BOOL copyBrowserExamKeyToClipboard = [preferences secureBoolForKey:@"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting"];

@@ -133,7 +133,12 @@
 
 - (void)performFindPanelAction:(id)sender
 {
-    long tag = ((NSMenuItem *)sender).tag;
+    // Teacher Panel: find on page only if allowed
+    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowFind"]) {
+        NSBeep();
+        return;
+    }
+    long tag = [sender respondsToSelector:@selector(tag)] ? [(NSMenuItem *)sender tag] : NSFindPanelActionShowFindPanel;
     switch (tag) {
         case NSFindPanelActionShowFindPanel:
             [self searchText];
@@ -152,12 +157,172 @@
     }
 }
 
+
+#pragma mark - Teacher Panel: keyboard shortcuts, printing, find in fullscreen
+
+static NSString * const SEBTeacherFindPanelIdentifier = @"SEBTeacherFindPanel";
+
+- (BOOL)performKeyEquivalent:(NSEvent *)event
+{
+    NSEventModifierFlags flags = event.modifierFlags & NSEventModifierFlagDeviceIndependentFlagsMask;
+    NSString *chars = event.charactersIgnoringModifiers.lowercaseString;
+    BOOL command = (flags & NSEventModifierFlagCommand) != 0;
+    BOOL otherModifiers = (flags & (NSEventModifierFlagControl | NSEventModifierFlagOption)) != 0;
+    if (command && !otherModifiers && chars.length == 1) {
+        BOOL shift = (flags & NSEventModifierFlagShift) != 0;
+        unichar c = [chars characterAtIndex:0];
+        if (c == 'p' && !shift) {
+            [self teacherPrint:self];
+            return YES;
+        }
+        if (c == 'f' && !shift) {
+            [self teacherFind:NSFindPanelActionShowFindPanel];
+            return YES;
+        }
+        if (c == 'g') {
+            [self teacherFind:shift ? NSFindPanelActionPrevious : NSFindPanelActionNext];
+            return YES;
+        }
+    }
+    return [super performKeyEquivalent:event];
+}
+
+- (void)teacherFind:(NSFindPanelAction)action
+{
+    NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"" action:nil keyEquivalent:@""];
+    item.tag = action;
+    [self performFindPanelAction:item];
+}
+
+// Print the current page (⌘P or window.print() on a web page), if allowed by the teacher.
+- (void)teacherPrint:(id)sender
+{
+    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowPrint"]) {
+        DDLogInfo(@"Printing is not allowed in current settings.");
+        NSBeep();
+        return;
+    }
+    if (self.attachedSheet) {
+        return;
+    }
+    id nativeWebView = [self.webView nativeWebView];
+    NSPrintInfo *printInfo = [[NSPrintInfo sharedPrintInfo] copy];
+    printInfo.horizontalPagination = NSPrintingPaginationModeFit;
+    printInfo.verticalPagination = NSPrintingPaginationModeAutomatic;
+    printInfo.verticallyCentered = NO;
+    NSPrintOperation *printOperation = nil;
+    if ([nativeWebView isKindOfClass:[WKWebView class]]) {
+        if (@available(macOS 11.0, *)) {
+            printOperation = [(WKWebView *)nativeWebView printOperationWithPrintInfo:printInfo];
+            // WKWebView needs a frame for its print view, otherwise blank pages are printed
+            printOperation.view.frame = ((WKWebView *)nativeWebView).bounds;
+        }
+    } else if ([nativeWebView isKindOfClass:[WebView class]]) {
+        NSView *documentView = [[[(WebView *)nativeWebView mainFrame] frameView] documentView];
+        if (documentView) {
+            printOperation = [NSPrintOperation printOperationWithView:documentView printInfo:printInfo];
+        }
+    }
+    if (!printOperation) {
+        DDLogError(@"Printing is not available for this web view.");
+        NSBeep();
+        return;
+    }
+    printOperation.showsPrintPanel = YES;
+    printOperation.showsProgressPanel = YES;
+    [printOperation runOperationModalForWindow:self delegate:nil didRunSelector:nil contextInfo:NULL];
+}
+
+// In fullscreen mode there is no toolbar with a search field, so show a small
+// search panel attached to the browser window instead.
+- (NSPanel *)teacherFindPanel
+{
+    for (NSWindow *child in self.childWindows) {
+        if ([child.identifier isEqualToString:SEBTeacherFindPanelIdentifier]) {
+            return (NSPanel *)child;
+        }
+    }
+    NSPanel *panel = [[NSPanel alloc] initWithContentRect:NSMakeRect(0, 0, 360, 44)
+                                                styleMask:NSWindowStyleMaskBorderless | NSWindowStyleMaskNonactivatingPanel
+                                                  backing:NSBackingStoreBuffered
+                                                    defer:NO];
+    panel.identifier = SEBTeacherFindPanelIdentifier;
+    panel.releasedWhenClosed = NO;
+    panel.hasShadow = YES;
+    panel.becomesKeyOnlyIfNeeded = NO;
+    panel.backgroundColor = [NSColor windowBackgroundColor];
+
+    NSSearchField *field = [[NSSearchField alloc] initWithFrame:NSMakeRect(8, 8, 270, 28)];
+    field.placeholderString = NSLocalizedString(@"Поиск на странице", @"");
+    field.sendsSearchStringImmediately = NO;
+    field.sendsWholeSearchString = YES;
+    field.target = self;
+    field.action = @selector(teacherFindFieldAction:);
+    field.identifier = @"SEBTeacherFindField";
+
+    NSButton *close = [NSButton buttonWithTitle:NSLocalizedString(@"Готово", @"") target:self action:@selector(teacherCloseFindPanel:)];
+    close.frame = NSMakeRect(284, 8, 70, 28);
+    close.keyEquivalent = @"\e";
+
+    [panel.contentView addSubview:field];
+    [panel.contentView addSubview:close];
+    [self addChildWindow:panel ordered:NSWindowAbove];
+    return panel;
+}
+
+- (NSSearchField *)teacherFindField
+{
+    for (NSView *view in [self teacherFindPanel].contentView.subviews) {
+        if ([view isKindOfClass:[NSSearchField class]]) {
+            return (NSSearchField *)view;
+        }
+    }
+    return nil;
+}
+
+- (void)teacherShowFindPanel
+{
+    NSPanel *panel = [self teacherFindPanel];
+    NSRect frame = self.frame;
+    NSRect panelFrame = panel.frame;
+    panelFrame.origin.x = NSMaxX(frame) - panelFrame.size.width - 20;
+    panelFrame.origin.y = NSMaxY(frame) - panelFrame.size.height - 20;
+    [panel setFrame:panelFrame display:YES];
+    panel.level = self.level;
+    [panel orderFront:self];
+    [panel makeKeyWindow];
+    [panel makeFirstResponder:[self teacherFindField]];
+}
+
+- (void)teacherFindFieldAction:(NSSearchField *)sender
+{
+    NSString *text = sender.stringValue;
+    if (text.length > 0) {
+        BOOL backwards = ([NSEvent modifierFlags] & NSEventModifierFlagShift) != 0;
+        [self searchText:text backwards:backwards caseSensitive:NO];
+    }
+}
+
+- (void)teacherCloseFindPanel:(id)sender
+{
+    NSPanel *panel = [self teacherFindPanel];
+    NSSearchField *field = [self teacherFindField];
+    field.stringValue = @"";
+    [self searchText:@"" backwards:NO caseSensitive:NO];
+    [self removeChildWindow:panel];
+    [panel orderOut:self];
+    [self makeKeyAndOrderFront:self];
+    [self makeContentFirstResponder];
+}
+
 - (void) searchText
 {
     if (!_isFullScreen) {
         [self displayToolbar];
         [self.browserWindowController searchTextMatchFound:NO];
         [self makeFirstResponder:self.browserWindowController.textSearchField];
+    } else {
+        [self teacherShowFindPanel];
     }
 }
 
@@ -165,6 +330,11 @@
 {
     if (!_isFullScreen) {
         [self.browserWindowController searchTextNext];
+    } else {
+        NSString *text = [self teacherFindField].stringValue;
+        if (text.length > 0) {
+            [self searchText:text backwards:NO caseSensitive:NO];
+        }
     }
 }
 
@@ -172,6 +342,11 @@
 {
     if (!_isFullScreen) {
         [self.browserWindowController searchTextPrevious];
+    } else {
+        NSString *text = [self teacherFindField].stringValue;
+        if (text.length > 0) {
+            [self searchText:text backwards:YES caseSensitive:NO];
+        }
     }
 }
 

@@ -288,6 +288,26 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
     public func _webView(_ webView: WKWebView, queryPermission name: String, for origin: WKSecurityOrigin) async -> WKPermissionDecision {
         return .grant
     }
+
+    // Teacher Panel: window.print() called by a web page (private WKUIDelegate API).
+    // Printing itself (and the check whether it is allowed) is done by the browser window.
+    private func teacherPrint(_ webView: WKWebView) {
+        let selector = NSSelectorFromString("teacherPrint:")
+        if let window = webView.window, window.responds(to: selector) {
+            window.perform(selector, with: nil)
+        }
+    }
+
+    @objc(_webView:printFrame:)
+    public func _webView(_ webView: WKWebView, printFrame frame: Any?) {
+        teacherPrint(webView)
+    }
+
+    @objc(_webView:printFrame:pdfFirstPageSize:completionHandler:)
+    public func _webView(_ webView: WKWebView, printFrame frame: Any?, pdfFirstPageSize size: CGSize, completionHandler: @escaping () -> Void) {
+        teacherPrint(webView)
+        completionHandler()
+    }
 }
 
 @available(macOS 11.3, iOS 14.5, *)
